@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="perksModelStoreContainer" CdmEntityContainer="perksEntities">
+    <EntitySetMapping Name="Activities">
+      <EntityTypeMapping TypeName="perksModel.Activity">
+        <MappingFragment StoreEntitySet="Activity">
+          <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+          <ScalarProperty Name="HandleId" ColumnName="HandleId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="MomentInTime" ColumnName="MomentInTime" />
+          <ScalarProperty Name="Indicator" ColumnName="Indicator" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ActivityTypes">
+      <EntityTypeMapping TypeName="perksModel.ActivityType">
+        <MappingFragment StoreEntitySet="ActivityType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ActType" ColumnName="ActType" />
+          <ScalarProperty Name="InvoiceIdentifier" ColumnName="InvoiceIdentifier" />
+          <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+          <ScalarProperty Name="ReasonId" ColumnName="ReasonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reasons">
+      <EntityTypeMapping TypeName="perksModel.Reason">
+        <MappingFragment StoreEntitySet="Reason">
+          <ScalarProperty Name="ReasonId" ColumnName="ReasonId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

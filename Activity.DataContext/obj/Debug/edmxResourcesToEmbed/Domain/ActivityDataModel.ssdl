@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="perksModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Activity">
+    <Key>
+      <PropertyRef Name="ActivityId" />
+    </Key>
+    <Property Name="ActivityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HandleId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="500" />
+    <Property Name="MomentInTime" Type="datetime" />
+    <Property Name="Indicator" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ActivityType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActType" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="InvoiceIdentifier" Type="varchar" MaxLength="250" />
+    <Property Name="ActivityId" Type="int" Nullable="false" />
+    <Property Name="ReasonId" Type="int" />
+  </EntityType>
+  <EntityType Name="Reason">
+    <Key>
+      <PropertyRef Name="ReasonId" />
+    </Key>
+    <Property Name="ReasonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <Association Name="FK__ActivityT__Activ__239E4DCF">
+    <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
+    <End Role="ActivityType" Type="Self.ActivityType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Activity">
+        <PropertyRef Name="ActivityId" />
+      </Principal>
+      <Dependent Role="ActivityType">
+        <PropertyRef Name="ActivityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ActivityT__Reaso__24927208">
+    <End Role="Reason" Type="Self.Reason" Multiplicity="0..1" />
+    <End Role="ActivityType" Type="Self.ActivityType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reason">
+        <PropertyRef Name="ReasonId" />
+      </Principal>
+      <Dependent Role="ActivityType">
+        <PropertyRef Name="ReasonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="perksModelStoreContainer">
+    <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ActivityType" EntityType="Self.ActivityType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reason" EntityType="Self.Reason" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ActivityT__Activ__239E4DCF" Association="Self.FK__ActivityT__Activ__239E4DCF">
+      <End Role="Activity" EntitySet="Activity" />
+      <End Role="ActivityType" EntitySet="ActivityType" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ActivityT__Reaso__24927208" Association="Self.FK__ActivityT__Reaso__24927208">
+      <End Role="Reason" EntitySet="Reason" />
+      <End Role="ActivityType" EntitySet="ActivityType" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

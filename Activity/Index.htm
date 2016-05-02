@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Activity Verification</title>
+    <link rel="stylesheet" href="Content/bootstrap.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" />
+    <!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.jqueryui.min.css" />-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="utf-8" />
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    <script src="Scripts/Custom/activity.js"></script>
+
+    <!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">-->
+    <link rel="stylesheet" href="Content/jquery-ui.min.css">
+	<meta charset="utf-8" />
+  
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Activity Verifier</a>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <!--<div class="col-md-1">hello</div>-->
+            <div class="col-md-12">
+                <div class="alert alert-success" id="message" role="alert">Testing</div>
+                <br />
+                <button id="btnConfirmVerification" class="btn btn-primary">Verify</button> &nbsp;
+                <button id="btnRevokeVerification" class="btn btn-warning">Revoke</button>
+                <br />
+                
+                <table id="activitiesTable" class="compact" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class="dt-head-center">Handle</th>
+                            <th class="dt-head-center">Description</th>
+                            <th class="dt-head-center">Activity Type</th>
+                            <th class="dt-head-center">Indicator</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th class="dt-head-center">Handle</th>
+                            <th class="dt-head-center">Description</th>
+                            <th class="dt-head-center">Activity Type</th>
+                            <th class="dt-head-center">Indicator</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="activityDetails" title="Activity Details">
+        <form>
+            <div class="form-group">
+                <label for="salesHandle">Handle</label>
+                <input type="text" id="salesHandle" name="salesHandle" class="form-control" />
+            </div>
+            <div class="form-group" id="dialogSales">
+                <label for="invoiceIdentifier">Invoice Identifier</label>
+                <input type="text" id="invoiceIdentifier" name="invoiceIdentifier" class="form-control" readonly />
+            </div>
+            <div class="form-group" id="dialogRec">
+                <label for="recognitionReason">Recognition Reason</label>
+                <input type="text" id="recognitionReason" name="recognitionReason" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label for="salesDescription">Description</label>
+                <input type="text" id="salesDescription" name="salesDescription" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label for="salesCapturedOn">Captured On</label>
+                <input type="text" id="salesCapturedOn" name="salesCapturedOn" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label for="salesIndicator">Indicator</label>
+                <select id="salesIndicator" class="form-control">
+                    <option value="1">Not verified</option>
+                    <option value="2">Verified</option>
+                </select>
+            </div>
+            <input type="hidden" id="hdnSalesId" />
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+
+        </form>
+    </div>
+</body>
+</html>

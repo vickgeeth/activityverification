@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="perksModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Activity">
+    <Key>
+      <PropertyRef Name="ActivityId" />
+    </Key>
+    <Property Name="ActivityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HandleId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="MomentInTime" Type="DateTime" Precision="3" />
+    <Property Name="Indicator" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ActivityTypes" Relationship="Self.FK_ActivityType_ToTable" FromRole="Activity" ToRole="ActivityType" />
+  </EntityType>
+  <EntityType Name="ActivityType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ActType" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="InvoiceIdentifier" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ActivityId" Type="Int32" Nullable="false" />
+    <Property Name="ReasonId" Type="Int32" />
+    <NavigationProperty Name="Activity" Relationship="Self.FK_ActivityType_ToTable" FromRole="ActivityType" ToRole="Activity" />
+    <NavigationProperty Name="Reason" Relationship="Self.FK_ActivityType_ToTable_1" FromRole="ActivityType" ToRole="Reason" />
+  </EntityType>
+  <EntityType Name="Reason">
+    <Key>
+      <PropertyRef Name="ReasonId" />
+    </Key>
+    <Property Name="ReasonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ActivityTypes" Relationship="Self.FK_ActivityType_ToTable_1" FromRole="Reason" ToRole="ActivityType" />
+  </EntityType>
+  <Association Name="FK_ActivityType_ToTable">
+    <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
+    <End Role="ActivityType" Type="Self.ActivityType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Activity">
+        <PropertyRef Name="ActivityId" />
+      </Principal>
+      <Dependent Role="ActivityType">
+        <PropertyRef Name="ActivityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ActivityType_ToTable_1">
+    <End Role="Reason" Type="Self.Reason" Multiplicity="0..1" />
+    <End Role="ActivityType" Type="Self.ActivityType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reason">
+        <PropertyRef Name="ReasonId" />
+      </Principal>
+      <Dependent Role="ActivityType">
+        <PropertyRef Name="ReasonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="perksEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Activities" EntityType="Self.Activity" />
+    <EntitySet Name="ActivityTypes" EntityType="Self.ActivityType" />
+    <EntitySet Name="Reasons" EntityType="Self.Reason" />
+    <AssociationSet Name="FK_ActivityType_ToTable" Association="Self.FK_ActivityType_ToTable">
+      <End Role="Activity" EntitySet="Activities" />
+      <End Role="ActivityType" EntitySet="ActivityTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ActivityType_ToTable_1" Association="Self.FK_ActivityType_ToTable_1">
+      <End Role="Reason" EntitySet="Reasons" />
+      <End Role="ActivityType" EntitySet="ActivityTypes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
