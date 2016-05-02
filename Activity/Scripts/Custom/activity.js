@@ -1,30 +1,33 @@
-﻿$(function () {
+﻿// JQUERY starting point
+$(function () {
+
+    // Hide message and dialog boxes
     $("#message").hide();
     $("#dialogSales").hide();
     $("#dialogRec").hide();
 
-
+    // Verification button click event handler
     $("#btnRevokeVerification").click(function () {
         BulkVerification(1, "Selected Activiti(es) are successfully revoked");
     });
 
+    // Revoke button click event handler
     $("#btnConfirmVerification").click(function () {
         BulkVerification(2, "Selected Activiti(es) are successfully verified");
 
     });
 
+    // Rest call to service to update Indicator field
     function BulkVerification(indicator, successmessage) {
         if ($('input[type="checkbox"]').length > 0) {
             var handleIds = [];
             //var handleIds = "";
             $('input[type="checkbox"]').each(function () {
-                console.log(this.checked + ' ' + this.value);
                 if (this.checked) {
                     handleIds.push(this.value);
                 }
 
             });
-            console.log(JSON.stringify(handleIds));
 
             // Check for checkbox selections
             if (handleIds.length > 0) {
@@ -40,6 +43,7 @@
                     $("#message").addClass("alert-success");
 
                     $('#activitiesTable').DataTable().ajax.reload();
+                    // loadgrid();
 
 
                 })
@@ -65,6 +69,7 @@
         }
     }
 
+    // "private" method to show and set error messages
     function showErrorMessage(message) {
         $("#message").html(message);
         $("#message").show();
@@ -72,8 +77,9 @@
         $("#message").removeClass("alert-success");
     }
 
+    //bind event handler to dynamic buttons "link"
     $(document).on('click', '.testclass', function () {
-        console.log(this.id);
+
         $("#message").hide();
         // Call to Rest
         $.get("api/activity?handleId=" + this.id, function (data, status) {
@@ -101,12 +107,13 @@
 
                 dialog.dialog("open");
             }
-            console.log(status);
+
         })
 
 
     });
 
+    // Modal Dialog box logic (JQuery UI)
     var dialog = $("#activityDetails").dialog({
         autoOpen: false,
         height: 520,
@@ -129,7 +136,7 @@
     // Save Activities 
     // Rest call
     function saveActivities() {
-        console.log($("#salesIndicator").val());
+
         // Rest call
         $.post("api/activity/update", {
             "ActivityId": $("#hdnSalesId").val(),
@@ -145,6 +152,7 @@
             $("#message").addClass("alert-success");
 
             $('#activitiesTable').DataTable().ajax.reload();
+            //loadgrid();
             dialog.dialog("close");
 
         })
@@ -159,49 +167,54 @@
         });
     }
 
-    // Datatable
-    $("#activitiesTable").DataTable({
-        "searching": false,
-        "pagingType": "simple_numbers",
-        "lengthMenu": [10],
-        "processing": true,
-        "serverSide": true,
-        "dom": '<"top"p>',
-        "scrollY": "200",
-        //"scrollCollapse": true,
-        "bSort": false,
-        "ajax": "api/activity/activities",
-        "columns": [
-             {
-                 "data": "ActivityId",
-                 'className': 'dt-body-center',
-                 "render": function (data, type, row) {
-                     return '<input type="checkbox" id="cb" value= "' + data + '"/>';
-                 }
-             },
-            {
-                "data": "HandleId",
-                'className': 'dt-body-center',
-                "render": function (data, type, row) {
-                    return '<button id=' + data + ' class="testclass btn btn-link">' + data + '</button>';
+    function loadgrid() {
+        // Datatable (grid) logic
+        $("#activitiesTable").DataTable({
+            "searching": false,
+            "pagingType": "simple_numbers",
+            "lengthMenu": [10],
+            "processing": true,
+            "serverSide": true,
+            "dom": '<"top"p>',
+            //"scrollY": "200",
+            //"scrollCollapse": true,
+            "bSort": false,
+            "ajax": "api/activity/activities",
+            "columns": [
+                 {
+                     "data": "ActivityId",
+                     'className': 'dt-body-center',
+                     "render": function (data, type, row) {
+                         return '<input type="checkbox" id="cb" value= "' + data + '"/>';
+                     }
+                 },
+                {
+                    "data": "HandleId",
+                    'className': 'dt-body-center',
+                    "render": function (data, type, row) {
+                        return '<button id=' + data + ' class="testclass btn btn-link">' + data + '</button>';
+                    }
+                },
+                { "data": "description" },
+                {
+                    "data": "ActivityType",
+                    'className': 'dt-body-center',
+                    "render": function (data, type, row) {
+                        return data == "S" ? "Sales" : "Recognition";
+                    }
+                },
+                {
+                    "data": "Indicator",
+                    'className': 'dt-body-center',
+                    "render": function (data, type, row) {
+                        return data == "1" ? "<label style='color:red'>Not Verified</label>" : "<label style='color:green'>Verified</label>";
+                    }
                 }
-            },
-            { "data": "description" },
-            {
-                "data": "ActivityType",
-                'className': 'dt-body-center',
-                "render": function (data, type, row) {
-                    return data == "S" ? "Sales" : "Recognition";
-                }
-            },
-            {
-                "data": "Indicator",
-                'className': 'dt-body-center',
-                "render": function (data, type, row) {
-                    return data == "1" ? "<label style='color:red'>Not Verified</label>" : "<label style='color:green'>Verified</label>";
-                }
-            }
 
-        ]
-    });
+            ]
+        });
+    }
+
+    loadgrid();
+
 });

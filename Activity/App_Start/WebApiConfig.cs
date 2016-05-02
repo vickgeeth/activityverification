@@ -22,6 +22,7 @@ namespace Activity
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            // Api route handler
             config.Routes.MapHttpRoute(
                 name: "Api with action",
                 routeTemplate: "api/{controller}/{action}/{id}",

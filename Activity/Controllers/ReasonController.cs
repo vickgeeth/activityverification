@@ -9,8 +9,15 @@ using models = Activity.Models;
 
 namespace Activity.Controllers
 {
+    /// <summary>
+    /// Reason controller inheried from ApiController
+    /// </summary>
     public class ReasonController : ApiController
     {
+        /// <summary>
+        /// Retrieve collection of reason objects
+        /// </summary>
+        /// <returns></returns>
         // GET: api/Reason
         public HttpResponseMessage Get()
         {
@@ -29,25 +36,6 @@ namespace Activity.Controllers
                 
         }
 
-        // GET: api/Reason/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Reason
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Reason/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Reason/5
-        public void Delete(int id)
-        {
-        }
+       
     }
 }

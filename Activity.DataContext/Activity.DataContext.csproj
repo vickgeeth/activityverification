@@ -91,7 +91,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Context\" />
     <Folder Include="Script\" />
   </ItemGroup>
   <ItemGroup>

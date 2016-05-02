@@ -9,8 +9,16 @@ using models = Activity.Models;
 
 namespace Activity.Controllers
 {
+    // Api controller inherited from ApiController
     public class ActivityController : ApiController
     {
+        /// <summary>
+        /// Retrieve paginated activities
+        /// </summary>
+        /// <param name="draw"></param>
+        /// <param name="start"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
         [HttpGet]
         public HttpResponseMessage Activities(int draw, int start, int length)
         {
@@ -52,6 +60,10 @@ namespace Activity.Controllers
                 });
         }
 
+        /// <summary>
+        /// Retrieve all activities
+        /// </summary>
+        /// <returns></returns>
         // GET: api/Activity
         public HttpResponseMessage Get()
         {
@@ -81,6 +93,11 @@ namespace Activity.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, modelActivities);
         }
 
+        /// <summary>
+        /// Action method to retrieve activity for input handle id
+        /// </summary>
+        /// <param name="handleId"></param>
+        /// <returns></returns>
         // GET: api/Activity/5
         public HttpResponseMessage Get(int handleId)
         {
@@ -104,11 +121,12 @@ namespace Activity.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, model);
         }
 
-        // POST: api/Activity
-        public void Post([FromBody]string value)
-        {
-        }
-
+      
+        /// <summary>
+        /// Action method to update indicators
+        /// </summary>
+        /// <param name="inputParams"></param>
+        /// <returns></returns>
         [HttpPost]
         public HttpResponseMessage UpdateIndicators([FromBody]models.InputParams inputParams)
         {
@@ -133,6 +151,11 @@ namespace Activity.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, "Activities are updated successfully");
         }
 
+        /// <summary>
+        /// Action method to update activity object
+        /// </summary>
+        /// <param name="activity"></param>
+        /// <returns></returns>
         // PUT: api/Activity/5
         [HttpPost]
         public HttpResponseMessage Update([FromBody]models.Activity activity)
