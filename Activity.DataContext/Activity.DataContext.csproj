@@ -90,9 +90,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Script\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Domain\ActivityDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -104,6 +102,10 @@
       <DependentUpon>ActivityDataModel.edmx</DependentUpon>
       <LastGenOutput>ActivityDataModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Script\dbo.Activity.sql" />
+    <Content Include="Script\dbo.ActivityType.sql" />
+    <Content Include="Script\dbo.Reason.sql" />
+    <Content Include="Script\DML.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
